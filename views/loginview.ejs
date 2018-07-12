@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> <%= test %> </title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+    <div class="login-page">
+  <div class="form">
+    <form class="register-form">
+        <input type="text" class="c" placeholder="email address"/>
+      <input type="password" class="d" placeholder="password"/>
+      <input type="text" class="e" placeholder="name"/>
+      <button class="go_form">create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" class="a" placeholder="username"/>
+      <input type="password" class="b" placeholder="password"/>
+      
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
+
+    </form>
+  </div>
+  <button class ="loginbutton">login</button>
+  <button class ="createbutton">create</button>
+  <div class="form" id="result"/>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>
