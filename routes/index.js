@@ -2,15 +2,15 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
     
     // Connection URL
-const url = 'mongodb://localhost:27017';
+    const url = 'mongodb://localhost:27017';
 
-module.exports = (app, Members) =>{
+    module.exports = (app, Members) =>{
     
     app.get('/maps', (req, res) => {
         MongoClient.connect(url, (err, client) => {
             assert.equal(null, err);
             var db = client.db("mongob_tutorial");
-            var cursor = db.collection('cctv').find({});
+            var cursor = db.collection('GEOcctv').find({});
             cursor.toArray((err, item) => {
                 if(err) console.log(err);
                 else {

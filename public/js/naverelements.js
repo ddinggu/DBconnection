@@ -1,14 +1,3 @@
-// 네이버 지도 실행 (기본 좌표, 줌 및 초기설정)
-// mapCreate = () => {
-//     var map = new naver.maps.Map('map', {
-//         center: new naver.maps.LatLng(37.5297825, 126.8992506), 
-//         zoom: 8, 
-//         mapTypeId: naver.maps.MapTypeId.NORMAL 
-//      }); 
-// }
-
-// mapCreate();
-
 var map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(37.5297825, 126.8992506), 
     zoom: 8, 
@@ -31,14 +20,16 @@ var marker = new naver.maps.Marker({
     map: map
 });
 
+var markers = [];
+
 naver.maps.Event.addListener(map, 'click', function(e) {
     marker.setPosition(e.coord);
 });
 
 // 위도, 경도에 따른 셀리 마커를 찍는 함수
-function createMaker(latitude, longitude){
+function createMaker(location){
      var marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(latitude, longitude),
+          position: new naver.maps.LatLng(location[1], location[0]),
           map: map,
           icon: {
                 url: 'img/sally.png',
@@ -47,53 +38,87 @@ function createMaker(latitude, longitude){
                 anchor: new naver.maps.Point(25, 26)
                  }
      });
+
+     markers.push(marker);
 }
 
 // 이 view를 실행 시 maps에서 설정한 mongodb와 연동한 값들을 data로 불러온다.
 // 이 값들은 $.get(..)에서 data parameter로 설정되고, toArray한 data들을 
 $(window).on('load', () =>{
     $.get('/maps', (data) => {
-        for(var i=0; i < 300; i++){
-         var latitude = data[i]['latitude'],
-             longitude = data[i]['longitude'];  
-             
-             $('#map').html(createMaker(latitude, longitude));
+        for(let i=0; i < 300; i++){
+            let cctvLocation = data[i]['geometry']['coordinates'];
+            createMaker(cctvLocation);
         }
     })
 });
 
-$('.place1').on('click', () => {
-    $.get('/maps', (data) => {
-        for(var i=300; i < 500; i++){
-         var latitude = data[i]['latitude'],
-             longitude = data[i]['longitude'];  
-             
-             $('#map').html(createMaker(latitude, longitude));
-        }
-    })
-})
+naver.maps.Event.addListener(map, 'idle', function() {
+    updateMarkers(map, markers);
+});
 
-$('.place2').on('click', () => {
-    $.get('/maps', (data) => {
-        for(var i=500; i < 700; i++){
-         var latitude = data[i]['latitude'],
-             longitude = data[i]['longitude'];  
-             
-             $('#map').html(createMaker(latitude, longitude));
-        }
-    })
-})
+function updateMarkers(map, markers) {
 
-$('.place3').on('click', () => {
-    $.get('/maps', (data) => {
-        for(var i=700; i < 900; i++){
-         var latitude = data[i]['latitude'],
-             longitude = data[i]['longitude'];  
-             
-             $('#map').html(createMaker(latitude, longitude));
+    var mapBounds = map.getBounds();
+    var marker, position;
+
+    for (var i = 0; i < markers.length; i++) {
+
+        marker = markers[i]
+        position = marker.getPosition();
+
+        if (mapBounds.hasLatLng(position)) {
+            showMarker(map, marker);
+        } else {
+            hideMarker(map, marker);
         }
-    })
-})
+    }
+}
+
+function showMarker(map, marker) {
+
+    if (marker.getMap()) return;
+    marker.setMap(map);
+}
+
+function hideMarker(map, marker) {
+
+    if (!marker.getMap()) return;
+    marker.setMap(null);
+}
+
+// $('.place1').on('click', () => {
+//     $.get('/maps', (data) => {
+//         for(var i=300; i < 500; i++){
+//          var latitude = data[i]['latitude'],
+//              longitude = data[i]['longitude'];  
+             
+//              $('#map').html(createMaker(latitude, longitude));
+//         }
+//     })
+// })
+
+// $('.place2').on('click', () => {
+//     $.get('/maps', (data) => {
+//         for(var i=500; i < 700; i++){
+//          var latitude = data[i]['latitude'],
+//              longitude = data[i]['longitude'];  
+             
+//              $('#map').html(createMaker(latitude, longitude));
+//         }
+//     })
+// })
+
+// $('.place3').on('click', () => {
+//     $.get('/maps', (data) => {
+//         for(var i=700; i < 900; i++){
+//          var latitude = data[i]['latitude'],
+//              longitude = data[i]['longitude'];  
+             
+//              $('#map').html(createMaker(latitude, longitude));
+//         }
+//     })
+// })
 
 
 
