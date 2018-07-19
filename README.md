@@ -13,7 +13,7 @@ CSV파일을 이용하여 mongoDB에 수동적으로 import ( 추후 다른 방�
 
     $ mongoimport --db {using db name} --collection {collection name} --type csv --headerline --file {file name}.csv
 
-###1.2 공공데이터 활용###
+###1.2 공공데이터 활용 
 
 mongoose 모듈을 통한 데이터 import가 실패하여 mongodb 모듈을 불러와 MongoClient를 활용한 mongoDB와의 통신을 활용한다. ( 추후 다른 방법을 고안하고자 한다. )
 
@@ -41,7 +41,7 @@ mongoose 모듈을 통한 데이터 import가 실패하여 mongodb 모듈을 불
     });
 
 
-###1.3 회원정보(로그인 정보) DB 구축###
+###1.3 회원정보(로그인 정보) DB 구축 
 
 _mongo는 SQL과 다르게 data type을 가리지 않고 받아온다는 특징을 갖고 있다. 하지만, mongoose는 SQL의 특징 중 하나인 'data type을 사전에 지정해줘야한다.' 를   **Schema** 로 구현하여  **Schema** 를 이용하여 통신한다 ._
 
