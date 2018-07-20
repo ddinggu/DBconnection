@@ -1,58 +1,44 @@
-var map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(37.5297825, 126.8992506), 
-    zoom: 8, 
-    mapTypeId: naver.maps.MapTypeId.NORMAL,
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-        style: naver.maps.MapTypeControlStyle.BUTTON,
-        position: naver.maps.Position.TOP_RIGHT
-    },
-    zoomControl: true,
-    zoomControlOptions: {
-        style: naver.maps.ZoomControlStyle.SMALL,
-        position: naver.maps.Position.TOP_RIGHT
-    }
- }); 
-
- // 초기 마커를 줘서 원하는 지점에 보낼 수 있게 만들기 위해
-var marker = new naver.maps.Marker({
-    position: new naver.maps.LatLng(37.5297825, 126.8992506), 
-    map: map
-});
-
-var markers = [];
-
-naver.maps.Event.addListener(map, 'click', function(e) {
-    marker.setPosition(e.coord);
-});
-
-// 위도, 경도에 따른 셀리 마커를 찍는 함수
-function createMaker(location){
-     var marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(location[1], location[0]),
-          map: map,
-          icon: {
-                url: 'img/sally.png',
-                size: new naver.maps.Size(30, 32),
-                origin: new naver.maps.Point(0, 0),
-                anchor: new naver.maps.Point(25, 26)
-                 }
-     });
-
-     markers.push(marker);
-}
+// 클릭시 마커를 옮기는 역활 
+var markers = []; 
 
 // 이 view를 실행 시 maps에서 설정한 mongodb와 연동한 값들을 data로 불러온다.
 // 이 값들은 $.get(..)에서 data parameter로 설정되고, toArray한 data들을 
 $(window).on('load', () =>{
-    $.get('/maps', (data) => {
-        for(let i=0; i < 300; i++){
-            let cctvLocation = data[i]['geometry']['coordinates'];
+    // $.get('/yeongdeungpo', (data) => {
+    //     for(var i=0; i < 300; i++){
+    //         var cctvLocation = data[i]['geometry']['coordinates'];
+    //         createMaker(cctvLocation);
+    //     }
+    // })
+
+    // 성동구 CCTV 출력
+    $.get('/sungsu', (data) => {
+        for(var i=0; i < 300; i++){
+            var cctvLocation = data[i]['geometry']['coordinates'];
             createMaker(cctvLocation);
+            console.log('cctv');
         }
     })
+    
 });
 
+// 위도, 경도에 따른 셀리 마커를 찍는 함수
+function createMaker(location){
+    var marker = new naver.maps.Marker({
+         position: new naver.maps.LatLng(location[1], location[0]),
+         map: map,
+         icon: {
+               url: 'img/sally.png',
+               size: new naver.maps.Size(30, 32),
+               origin: new naver.maps.Point(0, 0),
+               anchor: new naver.maps.Point(25, 26)
+                }
+    });
+
+    markers.push(marker);
+}
+
+// idle은 지도의 움직임이 종료 되었을때, 이벤트가 발생하게 된다. 
 naver.maps.Event.addListener(map, 'idle', function() {
     updateMarkers(map, markers);
 });
@@ -87,6 +73,22 @@ function hideMarker(map, marker) {
     marker.setMap(null);
 }
 
+
+// // customControler 
+// var locationBtnHtml = '<div class="map_btn_top"></div>';
+
+// //customControl 객체를 이용하기
+// var customControl = new naver.maps.CustomControl(locationBtnHtml, {
+//     position: naver.maps.Position.TOP_LEFT
+// });
+
+// customControl.setMap(map);
+
+// var domEventListener = naver.maps.Event.addDOMListener(customControl.getElement(), 'click', function() {
+//     map.setCenter(new naver.maps.LatLng(37.3595953, 127.1053971));
+// });
+
+
 // $('.place1').on('click', () => {
 //     $.get('/maps', (data) => {
 //         for(var i=300; i < 500; i++){
@@ -119,8 +121,6 @@ function hideMarker(map, marker) {
 //         }
 //     })
 // })
-
-
 
 // var infowindow = new naver.maps.InfoWindow();
 

@@ -1,0 +1,20 @@
+db.cctv.aggregate([
+    {$project: {
+        type : "Feature",
+        geometry : {
+            type : "Point",
+            coordinates : ['$longitude' , '$latitude']
+        },
+        properties : {
+            address : '$소재지지번주소'
+        }  
+    }},
+    {$out : 'GEOcctv'}
+])
+
+db.GEOcctv.createIndex({geometry : "2dsphere"})
+
+db.GEOcctv.find({
+    loc : { $near :  }
+})
+

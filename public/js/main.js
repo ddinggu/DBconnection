@@ -25,6 +25,8 @@ $('.loginbutton').on('click', () => {
         }
     })    
 
+})
+
 $('.createbutton').on('click', (e) => {
     var parameters = {email_address : $('.c').val(), 
                       password : $('.d').val(),
@@ -36,4 +38,3 @@ $('.createbutton').on('click', (e) => {
     })
 })
 
-})

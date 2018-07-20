@@ -6,11 +6,28 @@ const assert = require('assert');
 
     module.exports = (app, Members) =>{
     
-    app.get('/maps', (req, res) => {
+    // 영등포구
+    app.get('/yeongdeungpo', (req, res) => {
         MongoClient.connect(url, (err, client) => {
             assert.equal(null, err);
             var db = client.db("mongob_tutorial");
             var cursor = db.collection('GEOcctv').find({});
+            cursor.toArray((err, item) => {
+                if(err) console.log(err);
+                else {
+                    res.send(item);
+                    client.close();
+                }
+            })
+        });
+    });
+
+    // 성동구
+    app.get('/sungsu', (req, res) => {
+        MongoClient.connect(url, (err, client) => {
+            assert.equal(null, err);
+            var db = client.db("mongob_tutorial");
+            var cursor = db.collection('GEOcctv2').find({});
             cursor.toArray((err, item) => {
                 if(err) console.log(err);
                 else {
@@ -68,6 +85,6 @@ const assert = require('assert');
         // test connecting route
         // res.send('query');
     });
-        
+ 
 
 } // 모듈의 끝
