@@ -46,22 +46,22 @@ const assert = require('assert');
         res.render('loginview', {test : '회원가입'});
     })
 
-    app.post('/login/join', (req, res) => {
+    app.post('/login/join/', (req, res) => {
         let member = new Members();
 
         member.email_address = req.body.email_address;
         member.password = req.body.password;
         member.name = req.body.name;
 
-        console.log(member.name);
-        
+        if(!member.email_address || !member.password || !member.name) res.send('회원정보를 확인하고 다시 생성해주세요!');        
+         
         member.save((err) =>{
             if(err) {
                 console.log(err);
                 return;
             }
-            res.send('mongoDB에서 생성여부를 확인하세요');
-        })
+            else res.send('mongoDB에서 생성여부를 확인하세요');
+        })   
     });
 
     app.get('/login/show', (req, res) => {
@@ -85,6 +85,29 @@ const assert = require('assert');
         // test connecting route
         // res.send('query');
     });
+
+    // app.put('/login/change', (req, res) => {
+    //     var checkinfo = { email_address : req.body.email_address,
+    //                      password : req.body.password };
+
+    //     console.log(checkinfo);
+        
+    //     Members.find(checkinfo, function(err, data){
+    //                                 console.log(data);
+    //                                 if(err) res.send(err);  
+    //                                 else {
+    //                                     data.name = req.body.name;
+
+    //                                     data.save( (err)=> {
+    //                                         if(err) res.send(err)
+    //                                         else res.send('변경완료! DB에서 확인하세요!')
+    //                                     })
+    //                                 }
+
+    //                             });
+    //     // test connecting route
+    //     // res.send('query');
+    // });
  
 
-} // 모듈의 끝
+} // 모듈의 끝 

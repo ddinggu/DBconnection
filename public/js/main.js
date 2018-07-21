@@ -21,7 +21,6 @@ $('.loginbutton').on('click', () => {
         }
         else {
             $('#result').html(data);
-            $('.b').html() = '';
         }
     })    
 
@@ -37,4 +36,15 @@ $('.createbutton').on('click', (e) => {
         $('#result').html(data);
     })
 })
+
+// $('.changebutton').on('click', () =>{
+//     var parameters = {email_address : $('.c').val(), 
+//                       password : $('.d').val(),
+//                       name : $('.e').val()};
+//     console.log(parameters);
+
+//     $.put('/login/change', parameters, (data) =>{
+//         $('#result').html(data);
+//     })
+// })
 
