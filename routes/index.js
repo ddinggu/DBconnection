@@ -57,10 +57,10 @@ const assert = require('assert');
          
         member.save((err) =>{
             if(err) {
-                console.log(err);
+                res.send(err);
                 return;
             }
-            else res.send('mongoDB에서 생성여부를 확인하세요');
+            else res.send(member.password);
         })   
     });
 

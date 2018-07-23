@@ -20,8 +20,8 @@ app.use(session({
 }))
 
 const Members = require('./models/members');
-const router1 = require('./routes/index')(app, Members);
-const router2 = require('./routes/wow')(app, Members);
+const cctvInfo = require('./routes/index')(app, Members);
+const userInfo = require('./routes/sign')(app, Members);
 
 app.listen(3000, () => {
     console.log('connect port 3000 to application');

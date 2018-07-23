@@ -11,9 +11,8 @@ db.once('open', function(){
 const membersSchema = new Schema({
     email_address : {type : String, required : true, lowercase : true, 
                      index : true},
-    password : {type : String, required : true, trim: true, min: 8 },
-    name : {type : String, required : true},
-    
+    password : {type : String, required : true, trim: true, minlength: [8,'비밀번호는 8자리 이상 입력해주세요']},
+    name : {type : String, required : [true,'이름을 적어주세요']},
     
     evaluation : {
         ratings : Number,

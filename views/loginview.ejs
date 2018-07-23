@@ -9,24 +9,31 @@
 <body>
     <div class="login-page">
   <div class="form">
-    <form class="register-form">
-        <input type="text" class="c" placeholder="email address"/>
-      <input type="password" class="d" placeholder="password"/>
-      <input type="text" class="e" placeholder="name"/>
-      <button class="go_form">create</button>
+
+    <!-- 회원가입 부분 -->
+    <form class="register-form" action='/signup' method="post">
+      <input type="text" name="email_address" class="c" placeholder="email_address"/>
+      <input type="password" name="password" class="d" placeholder="password"/>
+      <input type="text" name="name" class="e" placeholder="name"/>
+      <input class="submit-button" type="submit" ></input>
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
-    <form class="login-form">
-      <input type="text" class="a" placeholder="username"/>
-      <input type="password" class="b" placeholder="password"/>
-      
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
 
+    <!-- 로그인 부분 -->
+    <form class="login-form" action='/accessLogin' method="post" >
+      <input type="text" name="email_address" class="a" placeholder="id"/>
+      <input type="password" name="password" class="b" placeholder="password"/>
+      <input class="submit-button" type="submit" ></input>
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
     </form>
+
+    <!-- 회원탈퇴 부분 -->
+
   </div>
+
   <button class ="loginbutton">login</button>
   <button class ="createbutton">create</button>
-  <!-- <button class ="changebutton">change</button> -->
+  <button><a href="/signout">회원탈퇴</a></button>
   <div class="form" id="result"/>
 </div>
 <script src="/js/main.js"></script>

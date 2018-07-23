@@ -1,12 +1,7 @@
+// 로그인 , 회원가입 input창 변화
 $('.message a').click(function(){
     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 });
-
-// $('.go_form').on('click', function(){
-//    // body값으로 사용자가 입력한 값들을 members collection에 전송 
-//    // 전송 후 로그인 세션에 로그인 정보 입력
-//    // 홈페이지로 재접속 res.redirect('/')
-// });
 
 $('.loginbutton').on('click', () => {
     var parameters = {email_address : $('.a').val() , 
@@ -23,7 +18,6 @@ $('.loginbutton').on('click', () => {
             $('#result').html(data);
         }
     })    
-
 })
 
 $('.createbutton').on('click', (e) => {
@@ -37,14 +31,5 @@ $('.createbutton').on('click', (e) => {
     })
 })
 
-// $('.changebutton').on('click', () =>{
-//     var parameters = {email_address : $('.c').val(), 
-//                       password : $('.d').val(),
-//                       name : $('.e').val()};
-//     console.log(parameters);
 
-//     $.put('/login/change', parameters, (data) =>{
-//         $('#result').html(data);
-//     })
-// })
 
