@@ -13,7 +13,9 @@ CSV파일을 이용하여 mongoDB에 수동적으로 import ( 추후 다른 방�
 
     $ mongoimport --db {using db name} --collection {collection name} --type csv --headerline --file {file name}.csv
 
-추가로, import 된 data를 aggregate framework를 통해 GEOJSON 형식 및 불필요한 정보들을 제거하였다. 
+추가로, import 된 data를 aggregate framework를 통해 GEOJSON 형식 및 불필요한 정보들을 제거하였다.\
+
+**mongoDB에서 제공하는 aggreagate framework로는 collection에 새로운 데이터를 올리는 것에 문제가 생겨서 map-reduce를 통해 데이터 전처리를 하려고 한다.**
 
 ### 1.2 공공데이터 활용 
 
@@ -22,9 +24,13 @@ mongoose 모듈을 통한 데이터 import가 실패하여 mongodb 모듈을 불
 
 ### 1.3 회원정보(로그인 정보) DB 구축 
 
-_mongo는 SQL과 다르게 data type을 가리지 않고 받아온다는 특징을 갖고 있다. 하지만, mongoose는 SQL의 특징 중 하나인 'data type을 사전에 지정해줘야한다.' 를   **Schema** 로 구현하여  **Schema** 를 이용하여 통신한다 ._
+_mongo는 SQL과 다르게 data type을 가리지 않고 받아온다는 특징을 갖고 있다. 하지만, mongoose는 SQL의 특징 중 하나인 'data type을 사전에 지정해줘야한다.' 를   **Schema** 로 구현하여  **Model** 을 이용하여 통신한다 ._
 
-node의 모듈인 mongoose를 활용하여 mongoDB와 통신 
+mongoose의 모델은 스키마를 컴파일링 한 클래스가 되고, 도큐먼트들은 모델에 의해 생성되는 과정을 거쳐서 DB에 CRUD를 할 수 있다.\
+추가로 스키마구조를 구축할 때, vaildator를 사용하여 에러값을 쉽게 출력할 수 있도록 간단하게 만들어 보았다.
+
+이번 기간동안은 mongoose 기본쿼리로 간단한 회원가입 - 로그인 - 탈퇴 기능을 구현했고, 추후에 bcrypt-nodejs와 session middleware들을 사용하여 구조를 보완 할 것이다. 
+
 
 
 ----------
@@ -59,6 +65,17 @@ _public/js/findmyloca.js_
 ![wesung](./imgforREADME/wesung.png)
 
 ----------
+
+## 3. 이후 계획 ## 
+
+1. bcrypt-nodejs와 salt를 통해 비밀번호 단방향 보안작업
+2. map - reduce를 통한 CCTV 데이터 전처리 작업
+3. Chrome에서 제공하는 GPS 보안이슈(https) 처리
+4. 이미 존재하는 CCTV데이터를 합산하는 작업 
+5. 길찾기 알고리즘 생성
+6. gitignore, config module을 통해 민감정보 제거
+7. Sound, Image DB 구축
+
 
 DB를 활용한 전체적인 흐름
 =============
