@@ -31,6 +31,11 @@ mongoose의 모델은 스키마를 컴파일링 한 클래스가 되고, 도큐�
 
 이번 기간동안은 mongoose 기본쿼리로 간단한 회원가입 - 로그인 - 탈퇴 기능을 구현했고, 추후에 bcrypt-nodejs와 session middleware들을 사용하여 구조를 보완 할 것이다. 
 
+- 7/24 
+bcrypt를 이용하여 암호 해쉬화를 진행하였고, DB에 안착되는 것을 확인\
+또한, mongoose schema에 pre hook, adding method를 활용.
+
+이를 통해 CRD를 구축했고, 팀원들과 협의를 통해 form 형식을 그대로 갈 것인지, ajax통신을 이용할 것인지 논의해야한다. 
 
 
 ----------
